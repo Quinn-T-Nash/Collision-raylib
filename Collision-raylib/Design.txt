@@ -1,0 +1,29 @@
+Design
+
+https://www.raylib.com/
+Using the Raylib API libary, implement 2 collison algorithms for 2d rigid body shapes
+
+Algorithms
+	SAT
+	GJK
+
+Basic 2D primative Shapes to start with
+	Triangle
+	Square
+	Circle
+
+
+Classes
+
+
+SAT (non rounded)
+	1 - The only input we need from the shape is the vertices of the shape
+
+
+
+GJK (non rounded)
+	1 - Again the only input we need is the vertices of the shape
+
+Shape
+	We need to know all the vertices of the shape
+
