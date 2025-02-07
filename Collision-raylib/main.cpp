@@ -1,119 +1,52 @@
+/*
+Quinn Nash
+qnash@live.nmhu.edu
+Collision-raylib
 
-#include "raylib.h"
-#include "Functions.h"
+Goal: Generative art using SAT and GJK collision algorithms with the raylib open source graphics API
+*/
 
-#include "Shape.h"
-#include "RectangleShape.h"
 
-//------------------------------------------------------------------------------------
-// Program main entry point
-//------------------------------------------------------------------------------------
+#include "Screen.h"
+
 int main(void)
 {
 	// Initialization
-	//--------------------------------------------------------------------------------------
-	const int screenWidth = 800;
-	const int screenHeight = 450;
+	const int screenWidth = 1200;
+	const int screenHeight = 650;
 
-	InitWindow(screenWidth, screenHeight, "QN-BSSD6000: raylib collisions");
+	Screen screen(screenWidth, screenHeight);
 
-	int positionX = screenWidth / 2;
-	int positionY = screenHeight / 2;
+	screen.startScreenLoop();
 
-	bool movePosX = true;
-	int movingX = positionX - 100;
-	int movingY = positionY;
-
-	Vector2 collisionPt = { 0,0 };
-	bool bCollision = false;
-
-	SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
-	//--------------------------------------------------------------------------------------
-
-	//Get a random place on screen
-	int randomX = rand() % screenWidth + 1;
-	int randomY = rand() % screenHeight + 1;
-	//int randomY = positionY;
-
-	int randomSpeed = rand() % 5 + 1;
-
-	Vector2 startPostion = { randomX,randomY };
-
-	Shape shapeA(startPostion, randomSpeed);
-
-
-	// Main game loop
-	while (!WindowShouldClose())    // Detect window close button or ESC key
-	{
-		// Update
-		//----------------------------------------------------------------------------------
-
-		//check wall collisions
-		if (shapeA.position.x <= 0 || shapeA.position.x >= screenWidth)
+		
+		/*if (CollisionSAT(shapeA.vertices, shapeB.vertices))
 		{
-			//change moving direction
-			shapeA.movementX = -shapeA.movementX;
+			shapeA.NegateMovements();
+			shapeB.NegateMovements();
+
+			collisionPtA = { shapeA.position.x, shapeA.position.y };
+			collisionPtB = { shapeB.position.x, shapeB.position.y };
+
+			shapeA.satLines.push_back(collisionPtA);
+			shapeB.satLines.push_back(collisionPtB);
+
+			bCollision = !bCollision;
 		}
 
-		if (shapeA.position.y <= 0 || shapeA.position.y >= screenHeight)
+		if (CollisionGJK(shapeA.vertices, shapeB.vertices))
 		{
-			shapeA.movementY = -shapeA.movementY;
-		}
+			shapeA.NegateMovements();
+			shapeB.NegateMovements();
 
-		//----------------------------------------------------------------------------------
+			collisionPtA = { shapeA.position.x, shapeA.position.y };
+			collisionPtB = { shapeB.position.x, shapeB.position.y };
 
+			shapeA.gjkLines.push_back(collisionPtA);
+			shapeB.gjkLines.push_back(collisionPtB);
 
-		// Draw
-		//----------------------------------------------------------------------------------
-		BeginDrawing();
-
-		ClearBackground(RAYWHITE);
-
-		shapeA.Draw();
-		shapeA.Move();
-
-		vector<Vector2> verticesB = {
-			{positionX + 0.0f, positionY + 40.0f},
-			{positionX + 40.0f, positionY + 40.0f},
-			{positionX + 40.0f, positionY - 40.0f }
-		};
-
-		DrawTriangleLines(verticesB[0], verticesB[1], verticesB[2], BLACK);
-
-
-		/*if (CollisionSAT(shapeA.vertices, verticesB))
-		{
-
-			shapeA.bCollision = true;
-			shapeA.movementX = 0;
-			shapeA.movementY = 0;
-
+			bCollision = !bCollision;
 		}*/
-
-		if (CollisionGJK(shapeA.vertices, verticesB))
-		{
-			shapeA.bCollision = true;
-			shapeA.movementX = 0;
-			shapeA.movementY = 0;
-
-		}
-
-		//draw the line post collision
-		if (bCollision)
-		{
-			DrawLine(collisionPt.x, collisionPt.y, movingX, movingY, BLACK);
-		}
-
-		DrawFPS(10, 10);
-
-		EndDrawing();
-		//----------------------------------------------------------------------------------
-	}
-
-	// De-Initialization
-	//--------------------------------------------------------------------------------------
-	CloseWindow();        // Close window and OpenGL context
-	//--------------------------------------------------------------------------------------
 
 	return 0;
 }

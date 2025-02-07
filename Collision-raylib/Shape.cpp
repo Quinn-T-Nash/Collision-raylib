@@ -1,50 +1,44 @@
 #include "Shape.h"
+#include "Screen.h"
 
 
-
-Shape::Shape()
+//Sets the start position of the shape to a random location on the screen
+Shape::Shape(Screen& screen)
 {
-	position = { 0,0 };
-	movementX = 0;
-	movementY = 0;
-	bCollision = false;
+	std::random_device rd; // True random number generator
+	std::mt19937 gen(rd()); // Mersenne Twister engine
+
+	//Generate a random spot on screen
+	std::uniform_int_distribution<> disX(1, screen.getScreenWidth());
+	std::uniform_int_distribution<> disY(1, screen.getScreenHeight());
+
+	std::uniform_int_distribution<> disSpeedX(1, 10);
+	std::uniform_int_distribution<> disSpeedY(1, 10);
+
+
+	center = Vec2<int>(disX(gen), disY(gen));
+	speed = Vec2<int>(disSpeedX(gen), disSpeedY(gen));
+
 }
 
-Shape::Shape(Vector2 startPosition, int speed)
+Vec2<int> Shape::getCenter()
 {
-	position = startPosition;
-	movementX = speed;
-	movementY = speed;
-	bCollision = false;
-};
-
-void Shape::Draw()
-{
-	//rectangle
-
-	DrawRectangleLines(position.x, position.y, 40, 40, MAROON);
+	return center;
 }
 
-void Shape::Move()
+void Shape::setCenter(Vec2<int> center)
 {
-	position.x = position.x + movementX;
-	position.y += movementY;
-
-	SetVertices();
+	this->center = center;
 }
 
-void Shape::SetVertices()
+Vec2<int> Shape::getSpeed()
 {
-	vertices.clear();
+	return speed;
+}
 
-	vertices.push_back(position);
-
-	vertices.push_back({ position.x + 40, position.y });
-
-	vertices.push_back({ position.x - 40, position.y - 40 });
-
-	vertices.push_back({ position.x, position.y - 40 });
-
+void Shape::setSpeed(Vec2<int> speed)
+{
+	this->speed = speed;
 }
 
 
