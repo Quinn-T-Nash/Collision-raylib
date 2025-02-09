@@ -22,7 +22,7 @@ namespace CustomObjects {
 		DrawRectangleLines(getVertices()[0].getX(), getVertices()[0].getY(),
 			getDimensions().getX(), getDimensions().getY(), BLACK);
 
-		Vector2 test = { 0, 0};
+		Vector2 test = { getCenter().getX(), getCenter().getY()};
 
 		DrawCircleV(test, 10, BLACK);
 	}
@@ -37,6 +37,7 @@ namespace CustomObjects {
 
 		Vec2<int> distance = getDimensions() / 2;
 
+		//NOTE zero zero is top left of screen and draw accordingly
 		addVertex({ getCenter().getX() - distance.getX(), getCenter().getY() - distance.getY() });
 		addVertex(getCenter() + distance);
 		addVertex({ getCenter().getX() + distance.getX(), getCenter().getY() + distance.getY() });

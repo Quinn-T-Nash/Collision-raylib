@@ -14,8 +14,8 @@ Shape::Shape(Vec2<int> bounds)
 	std::uniform_int_distribution<> disX(1, this->bounds.getX());
 	std::uniform_int_distribution<> disY(1, this->bounds.getY());
 
-	std::uniform_int_distribution<> disSpeedX(1, 2);
-	std::uniform_int_distribution<> disSpeedY(1, 2);
+	std::uniform_int_distribution<> disSpeedX(5, 10);
+	std::uniform_int_distribution<> disSpeedY(5, 10);
 
 
 	center = Vec2<int>(disX(gen), disY(gen));

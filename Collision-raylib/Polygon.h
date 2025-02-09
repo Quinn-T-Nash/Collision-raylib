@@ -16,6 +16,8 @@ public:
 
 	void setDimensions(Vec2<int> dimensions);
 
+	const std::vector<Vec2<int>>& getVertices() const;
+
 protected:
 	
 	//Functions to add move or reset vertexs
@@ -24,8 +26,6 @@ protected:
 	void addVertex(const Vec2<int>& vertex);
 
 	void clearVertices();
-
-	const std::vector<Vec2<int>>& getVertices() const;
 
 private:
 

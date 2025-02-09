@@ -5,10 +5,14 @@
 #include "raylib.h"
 #include <math.h>
 #include "Functions.h"
+#include "Vec2.h"
 
-static class satAlgorithm
+
+class satAlgorithm
 {
-	bool CheckCollision(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB);
+public:
+
+	static bool CheckCollision(std::vector<Vec2<int>> vecA, std::vector<Vec2<int>> vecB);
 
 
 };

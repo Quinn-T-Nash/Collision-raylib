@@ -5,18 +5,21 @@
 #include "raylib.h"
 #include <math.h>
 #include "Functions.h"
+#include "Vec2.h"
 
-static class gjkAlgorithm
+
+class gjkAlgorithm
 {
-	bool CheckCollision(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB);
+public:
+	static bool CheckCollision(std::vector<Vec2<int>> vecA, std::vector<Vec2<int>> vecB);
 
-	Vector2 SupportFunction(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB, Vector2 direction);
+	static Vector2 SupportFunction(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB, Vector2 direction);
 
-	bool HandleSimplex(std::vector<Vector2> simplex, Vector2 direction);
+	static bool HandleSimplex(std::vector<Vector2> simplex, Vector2 direction);
 
-	bool LineCase(std::vector<Vector2> simplex, Vector2 direction);
+	static bool LineCase(std::vector<Vector2> simplex, Vector2 direction);
 
-	bool TriangleCase(std::vector<Vector2> simplex, Vector2 direction);
+	static bool TriangleCase(std::vector<Vector2> simplex, Vector2 direction);
 };
 
 #endif

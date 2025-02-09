@@ -1,7 +1,23 @@
 #include "gjkAlgorithm.h"
 
-bool gjkAlgorithm::CheckCollision(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB)
+bool gjkAlgorithm::CheckCollision(std::vector<Vec2<int>> vecA, std::vector<Vec2<int>> vecB)
 {
+
+	// Convert vector A
+	std::vector<Vector2> verticesA;
+	verticesA.reserve(vecA.size());  // Reserve space for efficiency
+	for (const auto& vertex : vecA) {
+		verticesA.push_back(convertToVector2(vertex));
+	}
+
+	// Convert vector B
+	std::vector<Vector2> verticesB;
+	verticesB.reserve(vecB.size());  // Reserve space for efficiency
+	for (const auto& vertex : vecB) {
+		verticesB.push_back(convertToVector2(vertex));
+	}
+
+
 	// using random direction
 		//TODO switch to vector between center of the two shapes
 	Vector2 direction = { 1 , 0 };
@@ -96,10 +112,10 @@ bool gjkAlgorithm::HandleSimplex(std::vector<Vector2> simplex, Vector2 direction
 	}
 	else
 	{
+		//check the triangle case
 		return (TriangleCase(simplex, direction));
 	}
 
-	//check the triangle case
 }
 
 

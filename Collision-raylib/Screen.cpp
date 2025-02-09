@@ -20,7 +20,7 @@ int Screen::getScreenSize()
 	return 0;
 }
 
-void Screen::update()
+void Screen::update(std::vector<Vector2> vecCollisionPts)
 {
 	BeginDrawing();
 
@@ -34,6 +34,12 @@ void Screen::update()
 		shape->update();
 		
 		shape->draw();
+
+	}
+
+	for (Vector2 vec : vecCollisionPts)
+	{
+		DrawCircleV(vec, 15, getRandomRGB());
 	}
 
 	EndDrawing();

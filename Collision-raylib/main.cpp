@@ -6,59 +6,77 @@ Collision-raylib
 Goal: Generative art using SAT and GJK collision algorithms with the raylib open source graphics API
 */
 
-
 #include "Screen.h"
-
 #include "Rectangle.h"
+#include "gjkAlgorithm.h"
+#include "satAlgorithm.h"
+#include <vector>
 
 int main(void)
 {
 	// Initialization
-	Vec2<int> screenSize{ 1200, 600 };
+	std::vector<Vector2> vecCollisionPts;
+
+	Vec2<int> screenSize{ 600, 400 };
 
 	Screen screen(screenSize);
 
-	CustomObjects::Rectangle rectangle(screenSize, Vec2(40,40));
+	CustomObjects::Rectangle rectangle(screenSize, Vec2(40, 40));
 	CustomObjects::Rectangle rectangle2(screenSize, Vec2(40, 40));
 
 
 	screen.pShapes[0] = &rectangle;
-	screen.pShapes[1] = &rectangle;
+	screen.pShapes[1] = &rectangle2;
 
 
 	while (!screen.screenClosed())
 	{
-		screen.update();
-	}
+		screen.update(vecCollisionPts);
 
-		
-		/*if (CollisionSAT(shapeA.vertices, shapeB.vertices))
+
+		if (gjkAlgorithm::CheckCollision(rectangle.getVertices(), rectangle2.getVertices()))
 		{
-			shapeA.NegateMovements();
-			shapeB.NegateMovements();
+			Vec2<int> approxCollisionPt = rectangle.getCenter();
 
-			collisionPtA = { shapeA.position.x, shapeA.position.y };
-			collisionPtB = { shapeB.position.x, shapeB.position.y };
+			Vector2 pt = { approxCollisionPt.getX(), approxCollisionPt.getY() };
 
-			shapeA.satLines.push_back(collisionPtA);
-			shapeB.satLines.push_back(collisionPtB);
+			vecCollisionPts.push_back(pt);
 
-			bCollision = !bCollision;
+			rectangle.setSpeed(rectangle.getSpeed() * -1);
+			rectangle2.setSpeed(rectangle2.getSpeed() * -1);
+
 		}
 
-		if (CollisionGJK(shapeA.vertices, shapeB.vertices))
-		{
-			shapeA.NegateMovements();
-			shapeB.NegateMovements();
+	}
 
-			collisionPtA = { shapeA.position.x, shapeA.position.y };
-			collisionPtB = { shapeB.position.x, shapeB.position.y };
 
-			shapeA.gjkLines.push_back(collisionPtA);
-			shapeB.gjkLines.push_back(collisionPtB);
+	/*if (CollisionSAT(shapeA.vertices, shapeB.vertices))
+	{
+		shapeA.NegateMovements();
+		shapeB.NegateMovements();
 
-			bCollision = !bCollision;
-		}*/
+		collisionPtA = { shapeA.position.x, shapeA.position.y };
+		collisionPtB = { shapeB.position.x, shapeB.position.y };
+
+		shapeA.satLines.push_back(collisionPtA);
+		shapeB.satLines.push_back(collisionPtB);
+
+		bCollision = !bCollision;
+	}
+
+	if (CollisionGJK(shapeA.vertices, shapeB.vertices))
+	{
+		shapeA.NegateMovements();
+		shapeB.NegateMovements();
+
+		collisionPtA = { shapeA.position.x, shapeA.position.y };
+		collisionPtB = { shapeB.position.x, shapeB.position.y };
+
+		shapeA.gjkLines.push_back(collisionPtA);
+		shapeB.gjkLines.push_back(collisionPtB);
+
+		bCollision = !bCollision;
+	}*/
 
 	return 0;
 }

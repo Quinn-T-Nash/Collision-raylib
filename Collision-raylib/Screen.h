@@ -3,7 +3,7 @@
 
 #include "raylib.h"
 #include "Shape.h"
-
+#include "Functions.h"
 #include "Polygon.h"
 #include "Rectangle.h"
 
@@ -17,7 +17,7 @@ public:
 	bool screenClosed() const;
 	int getScreenSize();
 
-	void update();
+	void update(std::vector<Vector2> vecCollisionPts);
 
 	Shape* pShapes[2] = { nullptr, nullptr };
 

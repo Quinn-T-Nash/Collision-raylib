@@ -1,7 +1,22 @@
 #include "satAlgorithm.h"
 
-bool satAlgorithm::CheckCollision(std::vector<Vector2> verticesA, std::vector<Vector2> verticesB)
+bool satAlgorithm::CheckCollision(std::vector<Vec2<int>> vecA, std::vector<Vec2<int>> vecB)
 {
+	// Convert vector A
+	std::vector<Vector2> verticesA;
+	verticesA.reserve(vecA.size());  // Reserve space for efficiency
+	for (const auto& vertex : vecA) {
+		verticesA.push_back(convertToVector2(vertex));
+	}
+
+	// Convert vector B
+	std::vector<Vector2> verticesB;
+	verticesB.reserve(vecB.size());  // Reserve space for efficiency
+	for (const auto& vertex : vecB) {
+		verticesB.push_back(convertToVector2(vertex));
+	}
+
+
 	// Test axes from shape A
 	for (size_t i = 0; i < verticesA.size(); i++) {
 		// Get edge vector
@@ -87,3 +102,4 @@ bool satAlgorithm::CheckCollision(std::vector<Vector2> verticesA, std::vector<Ve
 
 	return true; // No separating axis found = collision
 }
+
