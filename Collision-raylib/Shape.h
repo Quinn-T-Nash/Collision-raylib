@@ -5,19 +5,16 @@
 #include "Vec2.h"
 #include <random>
 
-// Forward declaration
-class Screen;  // Add this line
-
-
 //Purely Virtual BaseShape Class (Basically serves as our shape inerface
 class Shape
 {
 public:
 
-	Shape(Screen& screen);
+	Shape(Vec2<int> bounds);
 
-	virtual void Draw() = 0;
-	virtual void Update() = 0;
+	virtual void draw() = 0;
+
+	void update();
 
 	//std::vector<Vector2> satLines;
 	//std::vector<Vector2> gjkLines;
@@ -28,10 +25,17 @@ public:
 	Vec2<int> getSpeed();
 	void setSpeed(Vec2<int> speed);
 
+	bool isOutOfBounds(Vec2<int> vertex);
+
+	void wallBounce(Vec2<int> vertex);
+
 private:
 
 	Vec2<int> center;
 	Vec2<int> speed;
+	Vec2<int> bounds;
+
+	const Vec2<int> origin{ 0,0 };
 
 };
 

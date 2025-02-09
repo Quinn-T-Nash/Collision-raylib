@@ -9,15 +9,27 @@ Goal: Generative art using SAT and GJK collision algorithms with the raylib open
 
 #include "Screen.h"
 
+#include "Rectangle.h"
+
 int main(void)
 {
 	// Initialization
-	const int screenWidth = 1200;
-	const int screenHeight = 650;
+	Vec2<int> screenSize{ 1200, 600 };
 
-	Screen screen(screenWidth, screenHeight);
+	Screen screen(screenSize);
 
-	screen.startScreenLoop();
+	CustomObjects::Rectangle rectangle(screenSize, Vec2(40,40));
+	CustomObjects::Rectangle rectangle2(screenSize, Vec2(40, 40));
+
+
+	screen.pShapes[0] = &rectangle;
+	screen.pShapes[1] = &rectangle;
+
+
+	while (!screen.screenClosed())
+	{
+		screen.update();
+	}
 
 		
 		/*if (CollisionSAT(shapeA.vertices, shapeB.vertices))

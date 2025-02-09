@@ -6,26 +6,19 @@
 
 namespace CustomObjects {
 
-	class Rectangle : protected Polygon
+	class Rectangle : public Polygon
 	{
 	public:
 
 		Rectangle() = default;
 
-		Rectangle(Screen& screen, Vec2<int> dimensions);
+		Rectangle(Vec2<int> bounds, Vec2<int> dimensions) : Polygon(bounds, dimensions) {};
 
-		void Update() override;
-
-		void Draw() override;
+		void draw() override;
 
 	protected:
 
 		void calcVertices() override;
-
-	private:
-
-		int height;
-		int width;
 
 	};
 

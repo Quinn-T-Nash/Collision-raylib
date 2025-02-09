@@ -1,8 +1,8 @@
 #include "Polygon.h"
 
 
-Polygon::Polygon(Screen& screen, Vec2<int> dimensions)
-	: Shape(screen)
+Polygon::Polygon(Vec2<int> bounds, Vec2<int> dimensions)
+	: Shape(bounds)
 {
 	this->dimensions = dimensions;
 }
@@ -32,3 +32,4 @@ const std::vector<Vec2<int>>& Polygon::getVertices() const
 {
 	return vertices;
 }
+

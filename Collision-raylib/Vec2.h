@@ -1,6 +1,7 @@
 #ifndef VEC2_H
 #define VEC2_H
 
+
 template <typename T>
 class Vec2
 {
@@ -32,7 +33,9 @@ public:
         return Vec2(x * scalar, y * scalar);
     }
 
-
+    Vec2 operator/(T scalar) const {
+        return Vec2(x / scalar, y / scalar);
+    }
 
 private:
 	T x;

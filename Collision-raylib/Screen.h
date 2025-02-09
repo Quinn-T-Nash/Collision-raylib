@@ -4,24 +4,26 @@
 #include "raylib.h"
 #include "Shape.h"
 
+#include "Polygon.h"
+#include "Rectangle.h"
+
 class Screen
 {
 public:
 	Screen() = default;
 
-	Screen(int screenWidth, int screenHeight);
+	Screen(Vec2<int> screenSize);
 
-	void startScreenLoop();
+	bool screenClosed() const;
+	int getScreenSize();
 
-	void Draw();
+	void update();
 
-	int getScreenWidth();
-	int getScreenHeight();
+	Shape* pShapes[2] = { nullptr, nullptr };
 
 private:
 
-	int screenWidth;
-	int screnHeight;
+	Vec2<int> screenSize;
 
 };
 

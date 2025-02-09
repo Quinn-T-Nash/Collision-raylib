@@ -1,30 +1,26 @@
 #include "Screen.h"
 
-Screen::Screen(int screenWidth, int screenHeight)
+Screen::Screen(Vec2<int> screenSize)
 {
-	this->screenWidth = screenWidth;
-	this->screnHeight = screenHeight;
+	this->screenSize = screenSize;
 
-	InitWindow(screenWidth, screenHeight, "QN-BSSD6000: raylib collisions");
+	InitWindow(screenSize.getX(), screenSize.getY(), "QN-BSSD6000: raylib collisions");
 
 	SetTargetFPS(60);
+
 }
 
-void Screen::startScreenLoop()
+bool Screen::screenClosed() const
 {
-	Shape* shape[2];
-
-
-	while (!WindowShouldClose())
-	{
-
-	}
-
-	CloseWindow();        // Close window and OpenGL context
-
+	return WindowShouldClose();
 }
 
-void Screen::Draw()
+int Screen::getScreenSize()
+{
+	return 0;
+}
+
+void Screen::update()
 {
 	BeginDrawing();
 
@@ -32,20 +28,14 @@ void Screen::Draw()
 
 	DrawFPS(10, 10);
 
-
 	//whatever I wabnt to draw
-
+	for (Shape* shape : pShapes)
+	{
+		shape->update();
+		
+		shape->draw();
+	}
 
 	EndDrawing();
 
-}
-
-int Screen::getScreenWidth()
-{
-	return screenWidth;
-}
-
-int Screen::getScreenHeight()
-{
-	return screnHeight;
 }
