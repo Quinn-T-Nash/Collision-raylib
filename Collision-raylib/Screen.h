@@ -15,7 +15,7 @@ public:
 	Screen(Vec2<int> screenSize);
 
 	bool screenClosed() const;
-	int getScreenSize();
+	Vec2<int> getScreenSize();
 
 	void update(std::vector<Vector2> vecCollisionPts);
 

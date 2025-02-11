@@ -42,8 +42,8 @@ int main(void)
 
 			vecCollisionPts.push_back(pt);
 
-			rectangle.setSpeed(rectangle.getSpeed() * -1);
-			rectangle2.setSpeed(rectangle2.getSpeed() * -1);
+			/*rectangle.setSpeed(rectangle.getSpeed() * -1);
+			rectangle2.setSpeed(rectangle2.getSpeed() * -1);*/
 
 		}
 
