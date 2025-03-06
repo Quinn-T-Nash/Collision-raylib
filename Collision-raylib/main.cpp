@@ -7,76 +7,28 @@ Goal: Generative art using SAT and GJK collision algorithms with the raylib open
 */
 
 #include "Screen.h"
-#include "Rectangle.h"
-#include "gjkAlgorithm.h"
-#include "satAlgorithm.h"
+#include "ShapeFactory.h"
 #include <vector>
 
 int main(void)
 {
-	// Initialization
-	std::vector<Vector2> vecCollisionPts;
+	Vec2<int> screenSize = { 800, 800 };
 
-	Vec2<int> screenSize{ 600, 400 };
+	Screen& screenSingleton = Screen::getInstance(screenSize);
 
-	Screen screen(screenSize);
+	ShapeFactory* factory = new ShapeFactory();
 
-	CustomObjects::Rectangle rectangle(screenSize, Vec2(40, 40));
-	CustomObjects::Rectangle rectangle2(screenSize, Vec2(40, 40));
+	std::vector<Shape*> shapes;
 
-
-	screen.pShapes[0] = &rectangle;
-	screen.pShapes[1] = &rectangle2;
+	shapes.push_back(factory->createShape(factory->getRandomShapeType(), screenSize));
+	shapes.push_back(factory->createShape(factory->getRandomShapeType(), screenSize));
 
 
-	while (!screen.screenClosed())
+	while (!screenSingleton.screenClosed())
 	{
-		screen.update(vecCollisionPts);
-
-
-		if (gjkAlgorithm::CheckCollision(rectangle.getVertices(), rectangle2.getVertices()))
-		{
-			Vec2<int> approxCollisionPt = rectangle.getCenter();
-
-			Vector2 pt = { approxCollisionPt.getX(), approxCollisionPt.getY() };
-
-			vecCollisionPts.push_back(pt);
-
-			/*rectangle.setSpeed(rectangle.getSpeed() * -1);
-			rectangle2.setSpeed(rectangle2.getSpeed() * -1);*/
-
-		}
-
+		screenSingleton.update(shapes, factory);
+		
 	}
-
-
-	/*if (CollisionSAT(shapeA.vertices, shapeB.vertices))
-	{
-		shapeA.NegateMovements();
-		shapeB.NegateMovements();
-
-		collisionPtA = { shapeA.position.x, shapeA.position.y };
-		collisionPtB = { shapeB.position.x, shapeB.position.y };
-
-		shapeA.satLines.push_back(collisionPtA);
-		shapeB.satLines.push_back(collisionPtB);
-
-		bCollision = !bCollision;
-	}
-
-	if (CollisionGJK(shapeA.vertices, shapeB.vertices))
-	{
-		shapeA.NegateMovements();
-		shapeB.NegateMovements();
-
-		collisionPtA = { shapeA.position.x, shapeA.position.y };
-		collisionPtB = { shapeB.position.x, shapeB.position.y };
-
-		shapeA.gjkLines.push_back(collisionPtA);
-		shapeB.gjkLines.push_back(collisionPtB);
-
-		bCollision = !bCollision;
-	}*/
 
 	return 0;
 }

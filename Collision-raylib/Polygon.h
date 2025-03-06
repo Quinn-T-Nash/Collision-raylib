@@ -10,7 +10,7 @@ public:
 
 	Polygon() = default;
 
-	Polygon(Vec2<int> bounds, Vec2<int> dimensions);
+	Polygon(Vec2<int> center, Vec2<int> speed);
 
 	Vec2<int> getDimensions();
 
@@ -21,7 +21,7 @@ public:
 protected:
 	
 	//Functions to add move or reset vertexs
-	virtual void calcVertices() = 0;
+	virtual Vec2<int> calcVertices(int width, int height) = 0;
 
 	void addVertex(const Vec2<int>& vertex);
 

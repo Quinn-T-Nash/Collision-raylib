@@ -46,3 +46,4 @@ Color getRandomRGB()
 	   255                                         // a (fully opaque)
 	};
 }
+

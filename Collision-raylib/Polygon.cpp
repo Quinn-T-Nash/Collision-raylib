@@ -1,10 +1,20 @@
 #include "Polygon.h"
 
+#include<random>
 
-Polygon::Polygon(Vec2<int> bounds, Vec2<int> dimensions)
-	: Shape(bounds)
+Polygon::Polygon(Vec2<int> center, Vec2<int> speed)
+	:Shape(center, speed)
 {
-	this->dimensions = dimensions;
+
+	std::random_device rd; // True random number generator
+	std::mt19937 gen(rd()); // Mersenne Twister engine
+
+	//Generate a dimensions speed
+	std::uniform_int_distribution<> width(40, 80);
+	std::uniform_int_distribution<> height(40, 80);
+
+	this->dimensions = Vec2<int>(width(gen), height(gen));
+
 }
 
 Vec2<int> Polygon::getDimensions()
@@ -17,7 +27,7 @@ void Polygon::setDimensions(Vec2<int> dimensions)
 	this->dimensions = dimensions;
 }
 
-//Functions to add move or reset vertexs
+
 void Polygon::addVertex(const Vec2<int>& vertex)
 {
 	vertices.push_back(vertex);
